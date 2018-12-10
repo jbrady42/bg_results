@@ -26,11 +26,11 @@ Or install it yourself as:
 
 
 ### Workers
-To enable results in a sidekiq worker `prepend BGResults::Worker::Sidekiq`
+To enable results in a sidekiq worker `prepend BgResults::Workers::Sidekiq`
 ```
 class ResultsJob
   include Sidekiq::Worker
-  prepend BGResults::Worker::Sidekiq
+  prepend BgResults::Worker::Sidekiq
 
   def perform
     result = background_task
@@ -43,7 +43,7 @@ Use the results batch object to access background results in the batch callbacks
 
 ```
 def on_success status, options
-  batch_res = BGResults::Batch.new status.bid
+  batch_res = BgResults::Batch.new status.bid
 end
 ```
 **NOTE:** accessing results is a destructive action. Results will be cleared from redis on first access
