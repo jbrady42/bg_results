@@ -1,0 +1,26 @@
+PATH
+  remote: .
+  specs:
+    bg_results (0.1.0)
+      connection_pool
+      redis
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    connection_pool (2.2.2)
+    minitest (5.11.3)
+    rake (10.5.0)
+    redis (4.0.3)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bg_results!
+  bundler (~> 1.16)
+  minitest (~> 5.0)
+  rake (~> 10.0)
+
+BUNDLED WITH
+   1.16.0
