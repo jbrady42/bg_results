@@ -6,6 +6,8 @@ class BgResultsTest < Minitest::Test
   end
 
   def test_it_does_something_useful
+    ::BgResults::Worker::Sidekiq
+    ::BgResults::Batch.new 2
     assert false
   end
 end
