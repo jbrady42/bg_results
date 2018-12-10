@@ -1,7 +1,7 @@
 # BgResults
 
 A simple tool for collecting results from background job batches.
-Results returned from the jobs are stored in a redis hash.
+Results returned from the jobs are stored in a Redis hash.
 
 Currently Sidekiq is supported using the 3rd party batch gem, but it should work with Sidekiq pro as well. Worker modules for other queue systems can easily be added to support different providers.
 
@@ -24,6 +24,17 @@ Or install it yourself as:
 
 ## Usage
 
+### Configure Redis
+
+A Redis connection pool is maintained to support flexibility from queue provider.
+
+Redis can be configured using the `REDIS_URL` environment variable.
+
+Otherwise you can supply your own connection pool or use Sidekiq's.
+
+```ruby
+BgResults.redis_pool = your_pool || Sidekiq.redis_pool
+```
 
 ### Workers
 To enable results in a sidekiq worker `prepend BgResults::Workers::Sidekiq`
