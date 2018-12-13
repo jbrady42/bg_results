@@ -25,6 +25,22 @@ class BgResultsTest < Minitest::Test
     # Preserves numeric types
     assert results.values.first == {"the_answer" => 42}
   end
+
+  def test_results_are_persisted_after_access
+    # Do work
+    job = ResultsTestJob.new 1
+    job.perform
+
+    # Check results
+    batch_res = BgResults::Batch.new job.bid
+    results = batch_res.results
+    assert results.values.first == {"the_answer" => 42}
+
+    # Check results again
+    batch2 = BgResults::Batch.new job.bid
+    results2 = batch2.results
+    assert results2.values.first == {"the_answer" => 42}
+  end
 end
 
 
