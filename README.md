@@ -35,9 +35,12 @@ Otherwise you can supply your own connection pool or use Sidekiq's.
 ```ruby
 BgResults.redis_pool = your_pool || Sidekiq.redis_pool
 ```
+### Data
+
+Results are stored in redis as JSON strings. Any datatype valid in JSON will work.
 
 ### Workers
-To enable results in a sidekiq worker `prepend BgResults::Workers::Sidekiq`
+To enable results in a sidekiq worker `prepend BgResults::Workers::Sidekiq` and the return value of `perform` will be collected.
 ```ruby
 class ResultsJobThe
   include Sidekiq::Worker

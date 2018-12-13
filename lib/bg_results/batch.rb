@@ -12,7 +12,7 @@ module BgResults
           conn.del @key
         end
       end
-      data
+      parse_results data
     end
 
     def results_in_batches
@@ -20,7 +20,8 @@ module BgResults
       cursor = 0
       loop do
         cursor, data = scan cursor, count
-        yield data.to_h
+        data = parse_results data.to_h
+        yield data
         break if cursor == 0
       end
       BgResults.redis do |conn|
@@ -43,6 +44,13 @@ module BgResults
         conn.hscan @key, cursor, count: count
       end
       [new_cursor.to_i, data]
+    end
+
+    def parse_results data
+      data = data.transform_values do |v|
+        payload = JSON.parse v
+        payload["result"]
+      end
     end
   end
 end

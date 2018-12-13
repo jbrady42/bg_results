@@ -1,5 +1,6 @@
 require "connection_pool"
 require "redis"
+require "json"
 
 require "bg_results/version"
 require "bg_results/batch"

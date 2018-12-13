@@ -3,9 +3,10 @@ module BgResults
     module Sidekiq
       def perform *args
         result = super
-        if batch = bid&.bid
+        if bid && jid
+          data = {result: result}.to_json
           BgResults.redis do |conn|
-            conn.hset "RESULTS-#{batch}", jid, result
+            conn.hset "RESULTS-#{bid}", jid, data
           end
         end
       end
