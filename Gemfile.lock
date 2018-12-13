@@ -9,6 +9,8 @@ GEM
   remote: https://rubygems.org/
   specs:
     connection_pool (2.2.2)
+    fakeredis (0.7.0)
+      redis (>= 3.2, < 5.0)
     minitest (5.11.3)
     rake (10.5.0)
     redis (4.0.3)
@@ -19,8 +21,9 @@ PLATFORMS
 DEPENDENCIES
   bg_results!
   bundler (~> 1.16)
+  fakeredis (~> 0.7)
   minitest (~> 5.0)
   rake (~> 10.0)
 
 BUNDLED WITH
-   1.16.0
+   1.17.1

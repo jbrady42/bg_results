@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["jabrady42@gmail.com"]
 
   spec.summary       = %q{A tool for handling results from background workers}
-  #spec.description   = %q{TODO: Write a longer description or delete this line.}
+  spec.description   = %q{A tool for handling results from background workers}
   spec.homepage      = "https://github.com/jbrady42/bg_results"
   spec.license       = "MIT"
 
@@ -33,8 +33,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency "redis"
   spec.add_dependency "connection_pool"
 
-
   spec.add_development_dependency "bundler", "~> 1.16"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "minitest", "~> 5.0"
+  spec.add_development_dependency "fakeredis", "~> 0.7"
 end
