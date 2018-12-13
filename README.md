@@ -60,7 +60,6 @@ def on_success status, options
   batch_res = BgResults::Batch.new status.bid
 end
 ```
-**NOTE:** accessing results is a destructive action. Results will be cleared from redis on first access
 
 #### All in one
 Return all results in a hash with mapping `{job_id => result}`.
@@ -68,12 +67,21 @@ Return all results in a hash with mapping `{job_id => result}`.
 ```ruby
 results = batch_res.results
 ```
+
 #### Scan
 Collect results in batches with redis scan.
 ```ruby
 batch_res.results_each do |job_id, result|
   puts result
 end
+```
+
+#### Lifetime
+Results are persisted for up to 24 hours after first access to allow for callback retry and debugging.
+
+In order to prevent redis from filling up with large results they should be cleared manually upon success.
+```ruby
+batch_res.clear_results!
 ```
 
 ## Development

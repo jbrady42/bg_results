@@ -1,5 +1,6 @@
 module BgResults
   class Batch
+    RESULT_TTL = 86400 # 1 day
     def initialize bid
       @bid = bid
       @key = "RESULTS-#{@bid}"
@@ -9,7 +10,7 @@ module BgResults
       data, _ = BgResults.redis do |conn|
         conn.multi do
           conn.hgetall @key
-          conn.del @key
+          conn.expire @key, RESULT_TTL
         end
       end
       parse_results data
@@ -24,9 +25,7 @@ module BgResults
         yield data
         break if cursor == 0
       end
-      BgResults.redis do |conn|
-        conn.del @key
-      end
+      set_results_expire
     end
 
     def results_each
@@ -35,6 +34,18 @@ module BgResults
         batch.each do |jid, res|
           yield jid, res
         end
+      end
+    end
+
+    def set_results_expire exp=RESULT_TTL
+      BgResults.redis do |conn|
+        conn.expire @key, exp
+      end
+    end
+
+    def clear_results!
+      BgResults.redis do |conn|
+        conn.del @key
       end
     end
 
