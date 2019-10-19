@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     bg_results (0.1.0)
-      connection_pool
+      connection_pool (~> 2.0)
       redis
 
 GEM
