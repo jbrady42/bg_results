@@ -58,10 +58,10 @@ module BgResults
     end
 
     def parse_results data
-      data = data.transform_values do |v|
+      data = data.map do |k,v|
         payload = JSON.parse v
-        payload["result"]
-      end
+        [k, payload["result"]]
+      end.to_h
     end
   end
 end
